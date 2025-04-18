@@ -7,6 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class JanelaBatalha extends JFrame {
+	private JLabel labelPontuacaoA;
+	private JLabel labelPontuacaoB;
+
     public JanelaBatalha(TorneioController controller, Batalha batalha, JanelaTorneio anterior) {
         setTitle("Batalha em andamento");
         setSize(500, 400);
@@ -46,14 +49,23 @@ public class JanelaBatalha extends JFrame {
         // Rodapé com botão de finalizar
         JButton finalizar = new JButton("Finalizar Batalha");
         finalizar.setFont(new Font("Tahoma", Font.BOLD, 12));
+        getContentPane().add(finalizar, BorderLayout.SOUTH);
+        
         finalizar.addActionListener(e -> {
             Startup vencedora = batalha.calcularVencedor();
-            JOptionPane.showMessageDialog(this, "Vencedora: " + vencedora.getNome());
+
+            String mensagem = "Vencedora: " + vencedora.getNome() + " com " + vencedora.getPontos() + " pontos.";
+
+            if (batalha.teveSharkFight()) {
+                mensagem = "🔥 SHARK FIGHT! 🔥\n" + mensagem + "\n(+2 pontos extras na disputa relâmpago!)";
+            }
+
+            JOptionPane.showMessageDialog(this, mensagem, "Resultado da Batalha", JOptionPane.INFORMATION_MESSAGE);
+
             anterior.checarAvanco();
             anterior.setVisible(true);
             dispose();
         });
-        getContentPane().add(finalizar, BorderLayout.SOUTH);
     }
 }
 
