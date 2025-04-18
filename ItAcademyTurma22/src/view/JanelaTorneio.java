@@ -12,20 +12,17 @@ public class JanelaTorneio extends JFrame {
     private JLabel lblRodada;
 
     public JanelaTorneio(TorneioController controller) {
-    	getContentPane().setBackground(Color.PINK);
+        getContentPane().setBackground(Color.PINK);
         this.controller = controller;
         setTitle("Torneio Startup Rush");
         setSize(500, 400);
-        BorderLayout borderLayout = new BorderLayout();
-        getContentPane().setLayout(borderLayout);
+        getContentPane().setLayout(new BorderLayout());
 
-        // Label da rodada
         lblRodada = new JLabel("Rodada " + controller.getRodada(), SwingConstants.CENTER);
         lblRodada.setBackground(Color.PINK);
         lblRodada.setFont(new Font("Tahoma", Font.BOLD, 24));
         getContentPane().add(lblRodada, BorderLayout.NORTH);
 
-        // Lista de batalhas
         listaBatalhas = new JList<>();
         listaBatalhas.setFont(new Font("Tahoma", Font.PLAIN, 15));
         listaBatalhas.setBackground(SystemColor.control);
@@ -33,7 +30,6 @@ public class JanelaTorneio extends JFrame {
         JScrollPane scroll = new JScrollPane(listaBatalhas);
         getContentPane().add(scroll, BorderLayout.CENTER);
 
-        // Botão para administrar batalha
         JButton btnAdministrar = new JButton("Administrar Batalha Selecionada");
         btnAdministrar.setFont(new Font("Tahoma", Font.BOLD, 15));
         btnAdministrar.addActionListener(e -> {
@@ -48,11 +44,14 @@ public class JanelaTorneio extends JFrame {
 
         getContentPane().add(btnAdministrar, BorderLayout.SOUTH);
 
-        // Primeira chamada para popular a tela
         atualizarTela();
     }
-
-    public void checarAvanco() {
+    	private void atualizarTela() {
+        java.util.List<Batalha> batalhas = controller.batalhasRestantes();
+        listaBatalhas.setListData(batalhas.toArray(new Batalha[0]));
+        lblRodada.setText("Rodada " + controller.getRodada());
+    }
+    	public void checarAvanco() {
         if (controller.batalhasRestantes().isEmpty()) {
             controller.avancarFase();
 
@@ -65,20 +64,8 @@ public class JanelaTorneio extends JFrame {
                 new JanelaRelatorio(controller).setVisible(true);
                 dispose();
             } else {
-                atualizarTela();
+                atualizarTela(); // <-- importante para exibir nova rodada
             }
         }
     }
-
-    private void atualizarTela() {
-        // Atualiza lista de batalhas da rodada atual
-        java.util.List<Batalha> batalhas = controller.batalhasRestantes();
-        listaBatalhas.setListData(batalhas.toArray(new Batalha[0]));
-
-        // Atualiza número da rodada
-        lblRodada.setText("Rodada " + controller.getRodada());
-    }
 }
-
-
-

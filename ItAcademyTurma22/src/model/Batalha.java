@@ -16,7 +16,7 @@ public class Batalha {
         eventosAplicados.put(a, new HashSet<>());
         eventosAplicados.put(b, new HashSet<>());
     }
-    
+
     public String toString() {
         return a.getNome() + " VS " + b.getNome();
     }
@@ -34,29 +34,24 @@ public class Batalha {
     }
 
     public Startup calcularVencedor() {
+        if (finalizada) return a.getPontos() > b.getPontos() ? a : b;
+
+        Startup vencedor;
         if (a.getPontos() > b.getPontos()) {
-            a.ganharBonusVitoria();
-            finalizada = true;
-            sharkFightRealizado = false;
-            return a;
+            vencedor = a;
         } else if (b.getPontos() > a.getPontos()) {
-            b.ganharBonusVitoria();
-            finalizada = true;
-            sharkFightRealizado = false;
-            return b;
+            vencedor = b;
         } else {
             // Shark Fight
-            Random rand = new Random();
-            Startup vencedor = rand.nextBoolean() ? a : b;
+            vencedor = new Random().nextBoolean() ? a : b;
             vencedor.ganharSharkFight();
-            vencedor.ganharBonusVitoria();
-            finalizada = true;
             sharkFightRealizado = true;
-            return vencedor;
         }
+
+        vencedor.ganharBonusVitoria();
+        finalizada = true;
+        return vencedor;
     }
-
-
 
     public boolean isFinalizada() {
         return finalizada;
@@ -65,5 +60,4 @@ public class Batalha {
     public boolean teveSharkFight() {
         return sharkFightRealizado;
     }
-
 }
