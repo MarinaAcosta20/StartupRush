@@ -4,29 +4,61 @@ import controller.TorneioController;
 import model.Startup;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.List;
 
 public class JanelaRelatorio extends JFrame {
+
     public JanelaRelatorio(TorneioController controller) {
-        setTitle("Resultado Final");
-        setSize(500, 400);
+        setTitle("Relatório Final do Torneio");
+        setSize(700, 400);
+        setLocationRelativeTo(null);
+        getContentPane().setBackground(new Color(255, 240, 245));
         setLayout(new BorderLayout());
 
-        JTextArea area = new JTextArea();
-        area.setEditable(false);
-        StringBuilder sb = new StringBuilder();
-        sb.append("🏆 Startup Campeã: ").append(controller.getCampea().getNome()).append("\n");
-        sb.append("Slogan: ").append(controller.getCampea().getSlogan()).append("\n\n");
-        sb.append("Ranking Final:\n");
+        // Título
+        JLabel titulo = new JLabel("📊 Relatório Geral do Startup Rush", SwingConstants.CENTER);
+        titulo.setFont(new Font("Tahoma", Font.BOLD, 22));
+        titulo.setBorder(BorderFactory.createEmptyBorder(15, 0, 15, 0));
+        add(titulo, BorderLayout.NORTH);
 
-        for (Startup s : controller.getRankingFinal()) {
-            sb.append(s.getNome()).append(" - ").append(s.getPontos()).append(" pontos\n");
-            sb.append("Pitch: ").append(s.getPitches()).append(", Bugs: ").append(s.getBugs()).append(", Trações: ").append(s.getTracoes()).append("\n");
-            sb.append("Investidores Irritados: ").append(s.getInvestidoresIrritados()).append(", Fake News: ").append(s.getFakeNews()).append("\n\n");
+        // Tabela de dados
+        String[] colunas = {"Startup", "Pontos", "Pitches", "Bugs", "Boa Tração", "Invest. Irritados", "Penalidades"};
+        DefaultTableModel modelo = new DefaultTableModel(colunas, 0);
+
+        List<Startup> todas = controller.getTodasStartups();
+        todas.sort((a, b) -> Integer.compare(b.getPontos(), a.getPontos())); // ordena por pontos decrescente
+
+        for (Startup s : todas) {
+            Object[] linha = {
+                    s.getNome(),
+                    s.getPontos(),
+                    s.getPitches(),
+                    s.getBugs(),
+                    s.getTracoes(),
+                    s.getInvestidoresIrritados(),
+                    s.getFakeNews(),
+            };
+            modelo.addRow(linha);
         }
 
-        area.setText(sb.toString());
-        add(new JScrollPane(area), BorderLayout.CENTER);
+        JTable tabela = new JTable(modelo);
+        tabela.setRowHeight(24);
+        tabela.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        tabela.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 14));
+        JScrollPane scrollPane = new JScrollPane(tabela);
+        add(scrollPane, BorderLayout.CENTER);
+
+        // Slogan da campeã
+        Startup campea = controller.getCampea();
+        if (campea != null) {
+            JLabel slogan = new JLabel("🏆 Slogan da Campeã \"" + campea.getNome() + "\": \"" + campea.getSlogan() + "\"", SwingConstants.CENTER);
+            slogan.setFont(new Font("Tahoma", Font.ITALIC, 16));
+            slogan.setBorder(BorderFactory.createEmptyBorder(15, 10, 15, 10));
+            add(slogan, BorderLayout.SOUTH);
+        }
+
+        setVisible(true);
     }
 }
-

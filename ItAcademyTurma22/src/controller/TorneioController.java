@@ -5,6 +5,7 @@ import model.*;
 import java.util.*;
 
 public class TorneioController {
+	private List<Startup> todasStartups = new ArrayList<>();
     private List<Startup> startups = new ArrayList<>();
     private Queue<Batalha> batalhas = new LinkedList<>();
     private int rodada = 1;
@@ -12,6 +13,7 @@ public class TorneioController {
 
     public void cadastrarStartup(Startup s) {
         startups.add(s);
+        todasStartups.add(s);
     }
 
     public boolean podeIniciar() {
@@ -83,4 +85,9 @@ public class TorneioController {
         }
         return restantes;
     }
+    
+    public List<Startup> getTodasStartups() {
+        return todasStartups;
+    }
+
 }
