@@ -12,19 +12,19 @@ public class JanelaRelatorio extends JFrame {
 
     public JanelaRelatorio(TorneioController controller) {
         setTitle("Relatório Final do Torneio");
-        setSize(700, 400);
+        setSize(1000, 400);
         setLocationRelativeTo(null);
-        getContentPane().setBackground(new Color(255, 240, 245));
-        setLayout(new BorderLayout());
+        getContentPane().setBackground(new Color(255, 192, 203));
+        getContentPane().setLayout(new BorderLayout());
 
         // Título
-        JLabel titulo = new JLabel("📊 Relatório Geral do Startup Rush", SwingConstants.CENTER);
+        JLabel titulo = new JLabel("Relatório Geral do Startup Rush", SwingConstants.CENTER);
         titulo.setFont(new Font("Tahoma", Font.BOLD, 22));
         titulo.setBorder(BorderFactory.createEmptyBorder(15, 0, 15, 0));
-        add(titulo, BorderLayout.NORTH);
+        getContentPane().add(titulo, BorderLayout.NORTH);
 
         // Tabela de dados
-        String[] colunas = {"Startup", "Pontos", "Pitches", "Bugs", "Boa Tração", "Invest. Irritados", "Penalidades"};
+        String[] colunas = {"Startup", "Pontos", "Pitch Convincente", "Produto com Bugs", "Boa Tração Usuários", "Invest. Irritados"};
         DefaultTableModel modelo = new DefaultTableModel(colunas, 0);
 
         List<Startup> todas = controller.getTodasStartups();
@@ -48,15 +48,15 @@ public class JanelaRelatorio extends JFrame {
         tabela.setFont(new Font("Tahoma", Font.PLAIN, 14));
         tabela.getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 14));
         JScrollPane scrollPane = new JScrollPane(tabela);
-        add(scrollPane, BorderLayout.CENTER);
+        getContentPane().add(scrollPane, BorderLayout.CENTER);
 
         // Slogan da campeã
         Startup campea = controller.getCampea();
         if (campea != null) {
-            JLabel slogan = new JLabel("🏆 Slogan da Campeã \"" + campea.getNome() + "\": \"" + campea.getSlogan() + "\"", SwingConstants.CENTER);
+            JLabel slogan = new JLabel("Slogan da Campeã \"" + campea.getNome() + "\": \"" + campea.getSlogan() + "\"", SwingConstants.CENTER);
             slogan.setFont(new Font("Tahoma", Font.ITALIC, 16));
             slogan.setBorder(BorderFactory.createEmptyBorder(15, 10, 15, 10));
-            add(slogan, BorderLayout.SOUTH);
+            getContentPane().add(slogan, BorderLayout.SOUTH);
         }
 
         setVisible(true);

@@ -11,13 +11,13 @@ public class JanelaBatalha extends JFrame {
     public JanelaBatalha(TorneioController controller, Batalha batalha, JanelaTorneio anterior) {
         setTitle("Batalha em andamento");
         setSize(500, 400);
-        setLayout(new BorderLayout());
+        getContentPane().setLayout(new BorderLayout());
 
         Startup a = batalha.getStartupA();
         Startup b = batalha.getStartupB();
 
         JPanel painelTopo = new JPanel(new GridLayout(2, 2));
-        painelTopo.setBackground(Color.PINK);
+        painelTopo.setBackground(new Color(255, 192, 203));
 
         JLabel nomeA = new JLabel("" + a.getNome(), SwingConstants.CENTER);
         JLabel nomeB = new JLabel("" + b.getNome(), SwingConstants.CENTER);
@@ -29,10 +29,10 @@ public class JanelaBatalha extends JFrame {
         painelTopo.add(pontosA);
         painelTopo.add(pontosB);
 
-        add(painelTopo, BorderLayout.NORTH);
+        getContentPane().add(painelTopo, BorderLayout.NORTH);
 
         JPanel painelEventos = new JPanel(new GridLayout(Evento.values().length, 2, 5, 5));
-        painelEventos.setBackground(Color.PINK);
+        painelEventos.setBackground(SystemColor.control);
 
         for (Evento e : Evento.values()) {
             JButton btnA = new JButton(e.getNomeFormatado());
@@ -56,11 +56,11 @@ public class JanelaBatalha extends JFrame {
             painelEventos.add(btnB);
         }
 
-        add(painelEventos, BorderLayout.CENTER);
+        getContentPane().add(painelEventos, BorderLayout.CENTER);
 
         JButton finalizar = new JButton("Finalizar Batalha");
         finalizar.setFont(new Font("Tahoma", Font.BOLD, 12));
-        add(finalizar, BorderLayout.SOUTH);
+        getContentPane().add(finalizar, BorderLayout.SOUTH);
 
         finalizar.addActionListener(e -> {
             if (batalha.isFinalizada()) {

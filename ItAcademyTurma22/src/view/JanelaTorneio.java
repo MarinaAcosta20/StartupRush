@@ -19,7 +19,7 @@ public class JanelaTorneio extends JFrame {
         getContentPane().setLayout(new BorderLayout());
 
         lblRodada = new JLabel("Rodada " + controller.getRodada(), SwingConstants.CENTER);
-        lblRodada.setBackground(Color.PINK);
+        lblRodada.setBackground(new Color(255, 192, 203));
         lblRodada.setFont(new Font("Tahoma", Font.BOLD, 24));
         getContentPane().add(lblRodada, BorderLayout.NORTH);
 

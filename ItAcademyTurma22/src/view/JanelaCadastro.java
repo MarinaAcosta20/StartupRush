@@ -23,7 +23,7 @@ public class JanelaCadastro extends JFrame {
 
         // Formulário
         JPanel form = new JPanel();
-        form.setBackground(Color.PINK);
+        form.setBackground(new Color(255, 192, 203));
         form.setLayout(new GridLayout(3, 2));
         JLabel label = new JLabel("Nome:");
         label.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -47,7 +47,7 @@ public class JanelaCadastro extends JFrame {
         btnIniciar.addActionListener(e -> iniciarTorneio());
 
         JPanel botoes = new JPanel();
-        botoes.setBackground(Color.PINK);
+        botoes.setBackground(new Color(255, 192, 203));
         botoes.add(btnAdicionar);
         botoes.add(btnIniciar);
         getContentPane().add(botoes, BorderLayout.SOUTH);

@@ -5,7 +5,7 @@ import model.*;
 import java.util.*;
 
 public class TorneioController {
-	private List<Startup> todasStartups = new ArrayList<>();
+    private List<Startup> todasStartups = new ArrayList<>();
     private List<Startup> startups = new ArrayList<>();
     private Queue<Batalha> batalhas = new LinkedList<>();
     private int rodada = 1;
@@ -23,6 +23,18 @@ public class TorneioController {
     public void iniciarRodada() {
         batalhas.clear();
         Collections.shuffle(startups);
+
+        // Se o número de startups for ímpar, avança uma automaticamente
+        if (startups.size() % 2 != 0) {
+            // Escolhe a startup com mais pontos para avançar automaticamente
+            Startup bye = Collections.max(startups, Comparator.comparingInt(Startup::getPontos));
+            startups.remove(bye); // Remove ela da lista de startups para não criar uma batalha com ela
+            // Você pode, se preferir, adicionar algum tipo de mensagem informando o avanço automático
+            System.out.println("Startup " + bye.getNome() + " avançou automaticamente para a próxima rodada.");
+
+        }
+
+        // Agora cria as batalhas entre as startups restantes
         for (int i = 0; i < startups.size(); i += 2) {
             batalhas.add(new Batalha(startups.get(i), startups.get(i + 1)));
         }
@@ -39,21 +51,38 @@ public class TorneioController {
     public void avancarFase() {
         List<Startup> vencedoras = new ArrayList<>();
 
-        for (Batalha b : batalhas) {
+        // Coleta os vencedores das batalhas restantes
+        while (!batalhas.isEmpty()) {
+            Batalha b = batalhas.poll();
             if (!b.isFinalizada()) {
                 b.calcularVencedor();
             }
-            vencedoras.add(b.calcularVencedor());
+            vencedoras.add(b.getVencedora());
         }
 
         if (vencedoras.size() == 1) {
             campea = vencedoras.get(0);
         } else {
-            startups = vencedoras;
+            List<Startup> novaRodada = new ArrayList<>();
+
+            if (vencedoras.size() % 2 != 0) {
+                // Startup com mais pontos avança automaticamente
+                Startup bye = Collections.max(vencedoras, Comparator.comparingInt(Startup::getPontos));
+                bye.ganharBonusVitoria(); // +30 pontos pela "vitória automática"
+                novaRodada.add(bye);
+
+                // Remove usando equals para garantir que a comparação funcione corretamente
+                vencedoras.removeIf(s -> s.equals(bye));
+            }
+
+            novaRodada.addAll(vencedoras);
+            startups = novaRodada;
             rodada++;
             iniciarRodada();
         }
     }
+
+
 
     public boolean torneioFinalizado() {
         return campea != null;

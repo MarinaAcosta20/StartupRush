@@ -37,8 +37,17 @@ public class Startup {
     public void ganharSharkFight() {
         pontos += 2;
     }
+  
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Startup startup = (Startup) o;
+        return nome.equals(startup.nome);
+    }
 
-    // Getters
+    public int hashCode() {
+        return nome.hashCode();
+    }
 
     public String getNome() { return nome; }
     public String getSlogan() { return slogan; }
@@ -50,4 +59,8 @@ public class Startup {
     public int getTracoes() { return tracoes; }
     public int getInvestidoresIrritados() { return investidoresIrritados; }
     public int getFakeNews() { return fakeNews; }
+
+	public void setPontos(int i) {
+		
+	}
 }

@@ -52,6 +52,14 @@ public class Batalha {
         finalizada = true;
         return vencedor;
     }
+    
+    public Startup getVencedora() {
+        if (!finalizada) {
+            return calcularVencedor();
+        }
+        return a.getPontos() > b.getPontos() ? a : b;
+    }
+
 
     public boolean isFinalizada() {
         return finalizada;
