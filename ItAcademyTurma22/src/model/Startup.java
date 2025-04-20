@@ -30,23 +30,16 @@ public class Startup {
         }
     }
 
+    public void aplicarEventoGlobal(EventoGlobal eventoGlobal) {
+        pontos += eventoGlobal.getImpacto();
+    }
+
     public void ganharBonusVitoria() {
         pontos += 30;
     }
 
     public void ganharSharkFight() {
         pontos += 2;
-    }
-  
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Startup startup = (Startup) o;
-        return nome.equals(startup.nome);
-    }
-
-    public int hashCode() {
-        return nome.hashCode();
     }
 
     public String getNome() { return nome; }
@@ -60,7 +53,18 @@ public class Startup {
     public int getInvestidoresIrritados() { return investidoresIrritados; }
     public int getFakeNews() { return fakeNews; }
 
-	public void setPontos(int i) {
-		
-	}
+    public void setPontos(int i) {
+        this.pontos = i;
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Startup startup = (Startup) o;
+        return nome.equals(startup.nome);
+    }
+
+    public int hashCode() {
+        return nome.hashCode();
+    }
 }

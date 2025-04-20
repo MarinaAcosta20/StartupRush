@@ -10,6 +10,10 @@ public class TorneioController {
     private Queue<Batalha> batalhas = new LinkedList<>();
     private int rodada = 1;
     private Startup campea;
+    private Startup byeDaRodada = null;
+    private Startup startupComBye;
+
+    private EventoGlobal eventoGlobalRodadaAtual;
 
     public void cadastrarStartup(Startup s) {
         startups.add(s);
@@ -21,23 +25,25 @@ public class TorneioController {
     }
 
     public void iniciarRodada() {
+        aplicarEventoGlobal();
         batalhas.clear();
         Collections.shuffle(startups);
-
-        // Se o número de startups for ímpar, avança uma automaticamente
-        if (startups.size() % 2 != 0) {
-            // Escolhe a startup com mais pontos para avançar automaticamente
-            Startup bye = Collections.max(startups, Comparator.comparingInt(Startup::getPontos));
-            startups.remove(bye); // Remove ela da lista de startups para não criar uma batalha com ela
-            // Você pode, se preferir, adicionar algum tipo de mensagem informando o avanço automático
-            System.out.println("Startup " + bye.getNome() + " avançou automaticamente para a próxima rodada.");
-
-        }
-
-        // Agora cria as batalhas entre as startups restantes
         for (int i = 0; i < startups.size(); i += 2) {
             batalhas.add(new Batalha(startups.get(i), startups.get(i + 1)));
         }
+    }
+
+    private void aplicarEventoGlobal() {
+        EventoGlobal[] eventos = EventoGlobal.values();
+        eventoGlobalRodadaAtual = eventos[new Random().nextInt(eventos.length)];
+
+        for (Startup s : startups) {
+            s.aplicarEventoGlobal(eventoGlobalRodadaAtual);
+        }
+    }
+
+    public EventoGlobal getEventoGlobalRodadaAtual() {
+        return eventoGlobalRodadaAtual;
     }
 
     public Batalha getProximaBatalha() {
@@ -51,13 +57,17 @@ public class TorneioController {
     public void avancarFase() {
         List<Startup> vencedoras = new ArrayList<>();
 
-        // Coleta os vencedores das batalhas restantes
         while (!batalhas.isEmpty()) {
             Batalha b = batalhas.poll();
             if (!b.isFinalizada()) {
                 b.calcularVencedor();
             }
-            vencedoras.add(b.getVencedora());
+            vencedoras.add(b.calcularVencedor());
+        }
+
+        if (byeDaRodada != null) {
+            vencedoras.add(byeDaRodada);
+            byeDaRodada = null;
         }
 
         if (vencedoras.size() == 1) {
@@ -66,13 +76,9 @@ public class TorneioController {
             List<Startup> novaRodada = new ArrayList<>();
 
             if (vencedoras.size() % 2 != 0) {
-                // Startup com mais pontos avança automaticamente
-                Startup bye = Collections.max(vencedoras, Comparator.comparingInt(Startup::getPontos));
-                bye.ganharBonusVitoria(); // +30 pontos pela "vitória automática"
-                novaRodada.add(bye);
-
-                // Remove usando equals para garantir que a comparação funcione corretamente
-                vencedoras.removeIf(s -> s.equals(bye));
+                byeDaRodada = Collections.max(vencedoras, Comparator.comparingInt(Startup::getPontos));
+                byeDaRodada.ganharBonusVitoria();
+                vencedoras.remove(byeDaRodada);
             }
 
             novaRodada.addAll(vencedoras);
@@ -82,7 +88,9 @@ public class TorneioController {
         }
     }
 
-
+    public Startup getStartupComBye() {
+        return startupComBye;
+    }
 
     public boolean torneioFinalizado() {
         return campea != null;
@@ -93,10 +101,7 @@ public class TorneioController {
     }
 
     public List<Startup> getRankingFinal() {
-        List<Startup> ranking = new ArrayList<>(startups);
-        if (campea != null && !ranking.contains(campea)) {
-            ranking.add(campea);
-        }
+        List<Startup> ranking = new ArrayList<>(todasStartups);
         ranking.sort(Comparator.comparingInt(Startup::getPontos).reversed());
         return ranking;
     }
@@ -114,9 +119,12 @@ public class TorneioController {
         }
         return restantes;
     }
-    
+
     public List<Startup> getTodasStartups() {
         return todasStartups;
     }
 
+    public Startup getByeDaRodada() {
+        return byeDaRodada;
+    }
 }

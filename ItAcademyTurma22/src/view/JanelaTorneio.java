@@ -2,6 +2,7 @@ package view;
 
 import controller.TorneioController;
 import model.Batalha;
+import model.EventoGlobal;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +11,7 @@ public class JanelaTorneio extends JFrame {
     private TorneioController controller;
     private JList<Batalha> listaBatalhas;
     private JLabel lblRodada;
-
+    
     public JanelaTorneio(TorneioController controller) {
         getContentPane().setBackground(Color.PINK);
         this.controller = controller;
@@ -46,26 +47,43 @@ public class JanelaTorneio extends JFrame {
 
         atualizarTela();
     }
-    	private void atualizarTela() {
+    private void atualizarTela() {
         java.util.List<Batalha> batalhas = controller.batalhasRestantes();
         listaBatalhas.setListData(batalhas.toArray(new Batalha[0]));
         lblRodada.setText("Rodada " + controller.getRodada());
-    }
-    	public void checarAvanco() {
-        if (controller.batalhasRestantes().isEmpty()) {
-            controller.avancarFase();
 
-            if (controller.getCampea() != null) {
-                JOptionPane.showMessageDialog(this,
-                        "🏆 A campeã do Startup Rush é: " + controller.getCampea().getNome() +
-                                "\nSlogan: \"" + controller.getCampea().getSlogan() + "\"",
-                        "Campeã!", JOptionPane.INFORMATION_MESSAGE);
-
-                new JanelaRelatorio(controller).setVisible(true);
-                dispose();
-            } else {
-                atualizarTela(); // <-- importante para exibir nova rodada
-            }
+        EventoGlobal evento = controller.getEventoGlobalRodadaAtual();
+        if (evento != null) {
+            JOptionPane.showMessageDialog(this,
+                "🌐 Evento Global desta rodada:\n" + evento.getDescricao(),
+                "Evento Global", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-}
+
+    	public void checarAvanco() {
+    	    if (controller.batalhasRestantes().isEmpty()) {
+    	        controller.avancarFase();
+
+    	        // Se alguém passou automaticamente (bye), exibe na interface
+    	        if (controller.getStartupComBye() != null) {
+    	            JOptionPane.showMessageDialog(this,
+    	                    "🚀 A startup \"" + controller.getStartupComBye().getNome() + "\" avançou automaticamente para a próxima rodada!",
+    	                    "Avanço Automático (Bye)",
+    	                    JOptionPane.INFORMATION_MESSAGE);
+    	        }
+
+    	        if (controller.getCampea() != null) {
+    	            JOptionPane.showMessageDialog(this,
+    	                    "🏆 A campeã do Startup Rush é: " + controller.getCampea().getNome() +
+    	                            "\nSlogan: \"" + controller.getCampea().getSlogan() + "\"",
+    	                    "Campeã!", JOptionPane.INFORMATION_MESSAGE);
+
+    	            new JanelaRelatorio(controller).setVisible(true);
+    	            dispose();
+    	        } else {
+    	            atualizarTela(); // <-- importante para exibir nova rodada
+    	        }
+    	    }
+    	}
+    }
+

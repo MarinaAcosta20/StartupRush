@@ -17,13 +17,12 @@ public class JanelaRelatorio extends JFrame {
         getContentPane().setBackground(new Color(255, 192, 203));
         getContentPane().setLayout(new BorderLayout());
 
-        // Título
         JLabel titulo = new JLabel("Relatório Geral do Startup Rush", SwingConstants.CENTER);
         titulo.setFont(new Font("Tahoma", Font.BOLD, 22));
         titulo.setBorder(BorderFactory.createEmptyBorder(15, 0, 15, 0));
         getContentPane().add(titulo, BorderLayout.NORTH);
 
-        // Tabela de dados
+        //  de dados
         String[] colunas = {"Startup", "Pontos", "Pitch Convincente", "Produto com Bugs", "Boa Tração Usuários", "Invest. Irritados"};
         DefaultTableModel modelo = new DefaultTableModel(colunas, 0);
 
@@ -53,7 +52,7 @@ public class JanelaRelatorio extends JFrame {
         // Slogan da campeã
         Startup campea = controller.getCampea();
         if (campea != null) {
-            JLabel slogan = new JLabel("Slogan da Campeã \"" + campea.getNome() + "\": \"" + campea.getSlogan() + "\"", SwingConstants.CENTER);
+            JLabel slogan = new JLabel("Campeã: \"" + campea.getNome() + "\": \"" + campea.getSlogan() + "\"", SwingConstants.CENTER);
             slogan.setFont(new Font("Tahoma", Font.ITALIC, 16));
             slogan.setBorder(BorderFactory.createEmptyBorder(15, 10, 15, 10));
             getContentPane().add(slogan, BorderLayout.SOUTH);
