@@ -43,7 +43,7 @@ public class JanelaMenu extends JFrame {
         painel.add(Box.createVerticalStrut(10));
 
         JTextArea regras = new JTextArea();
-        regras.setText(" O torneio de startups envolve de 4 a 8 startups, obrigatoriamente em número par. Cada startup começa com 70 pontos e as rodadas são compostas por batalhas em pares, sorteados automaticamente pelo sistema. As batalhas são administradas pelo usuário, que escolhe uma batalha pendente e insere os eventos ocorridos. Durante a batalha, o usuário pode registrar eventos que afetam diretamente a pontuação das startups, como:\n"
+        regras.setText(" O torneio de startups envolve de 4 a 8 startups, obrigatoriamente em número par. Cada startup começa com 70 pontos e ganha mais 30 a cada vitória, as rodadas são compostas por batalhas em pares, sorteados automaticamente pelo sistema. As batalhas são administradas pelo usuário, que escolhe uma batalha pendente e insere os eventos ocorridos. Durante a batalha, o usuário pode registrar eventos que afetam diretamente a pontuação das startups, como:\n"
         		+ " • Pitch convincente (+6 pontos)\n"
         		+ " • Produto com bugs (-4 pontos)\n"
         		+ " • Boa tração de usuários (+3 pontos)\n"
@@ -101,7 +101,7 @@ public class JanelaMenu extends JFrame {
         painel.add(Box.createVerticalStrut(10));
 
         JTextArea empate = new JTextArea();
-        empate.setText("Se houver empate ao final de uma batalha, um 'Shark Fight' é ativado,onde uma startup aleatória recebe +2 pontos.\n"
+        empate.setText("Se houver empate ao final de uma batalha, um 'Shark Fight' é ativado, onde uma startup aleatória recebe +2 pontos.\n"
                         + " O novo placar decide o vencedor.");
         empate.setEditable(false);
         empate.setWrapStyleWord(true);

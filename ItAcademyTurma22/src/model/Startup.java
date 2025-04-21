@@ -5,8 +5,6 @@ public class Startup {
     private String slogan;
     private int ano;
     private int pontos = 70;
-
-    // Estatísticas
     private int pitches = 0;
     private int bugs = 0;
     private int tracoes = 0;

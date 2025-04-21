@@ -21,8 +21,6 @@ public class Batalha {
         return a.getNome() + " VS " + b.getNome();
     }
 
-    public Startup getStartupA() { return a; }
-    public Startup getStartupB() { return b; }
 
     public boolean aplicarEvento(Startup s, Evento e) {
         if (!eventosAplicados.get(s).contains(e)) {
@@ -42,7 +40,6 @@ public class Batalha {
         } else if (b.getPontos() > a.getPontos()) {
             vencedor = b;
         } else {
-            // Shark Fight
             vencedor = new Random().nextBoolean() ? a : b;
             vencedor.ganharSharkFight();
             sharkFightRealizado = true;
@@ -59,7 +56,9 @@ public class Batalha {
         }
         return a.getPontos() > b.getPontos() ? a : b;
     }
-
+    
+    public Startup getStartupA() { return a; }
+    public Startup getStartupB() { return b; }
 
     public boolean isFinalizada() {
         return finalizada;

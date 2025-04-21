@@ -21,7 +21,6 @@ public class JanelaCadastro extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         getContentPane().setLayout(new BorderLayout());
 
-        // Formulário
         JPanel form = new JPanel();
         form.setBackground(new Color(255, 192, 203));
         form.setLayout(new GridLayout(3, 2));
@@ -39,7 +38,6 @@ public class JanelaCadastro extends JFrame {
         form.add(txtAno);
         getContentPane().add(form, BorderLayout.NORTH);
 
-        // Botões
         JButton btnAdicionar = new JButton("Adicionar");
         btnAdicionar.addActionListener(e -> adicionarStartup());
 
@@ -52,7 +50,6 @@ public class JanelaCadastro extends JFrame {
         botoes.add(btnIniciar);
         getContentPane().add(botoes, BorderLayout.SOUTH);
 
-        // Lista de startups
         JList<String> lista = new JList<>(listModel);
         lista.setFont(new Font("Tahoma", Font.PLAIN, 12));
         lista.setBackground(SystemColor.control);

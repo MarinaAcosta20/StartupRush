@@ -9,11 +9,10 @@ public class TorneioController {
     private List<Startup> startups = new ArrayList<>();
     private Queue<Batalha> batalhas = new LinkedList<>();
     private int rodada = 1;
+    private EventoGlobal eventoGlobalRodadaAtual;
     private Startup campea;
     private Startup byeDaRodada = null;
     private Startup startupComBye;
-
-    private EventoGlobal eventoGlobalRodadaAtual;
 
     public void cadastrarStartup(Startup s) {
         startups.add(s);
@@ -41,19 +40,6 @@ public class TorneioController {
             s.aplicarEventoGlobal(eventoGlobalRodadaAtual);
         }
     }
-
-    public EventoGlobal getEventoGlobalRodadaAtual() {
-        return eventoGlobalRodadaAtual;
-    }
-
-    public Batalha getProximaBatalha() {
-        return batalhas.poll();
-    }
-
-    public boolean temMaisBatalhas() {
-        return batalhas.stream().anyMatch(b -> !b.isFinalizada());
-    }
-
     public void avancarFase() {
         List<Startup> vencedoras = new ArrayList<>();
 
@@ -87,27 +73,11 @@ public class TorneioController {
             iniciarRodada();
         }
     }
-
-    public Startup getStartupComBye() {
-        return startupComBye;
-    }
-
-    public boolean torneioFinalizado() {
-        return campea != null;
-    }
-
-    public Startup getCampea() {
-        return campea;
-    }
-
+    
     public List<Startup> getRankingFinal() {
         List<Startup> ranking = new ArrayList<>(todasStartups);
         ranking.sort(Comparator.comparingInt(Startup::getPontos).reversed());
         return ranking;
-    }
-
-    public int getRodada() {
-        return rodada;
     }
 
     public List<Batalha> batalhasRestantes() {
@@ -120,6 +90,17 @@ public class TorneioController {
         return restantes;
     }
 
+    public EventoGlobal getEventoGlobalRodadaAtual() {
+        return eventoGlobalRodadaAtual;
+    }
+
+    public Batalha getProximaBatalha() {
+        return batalhas.poll();
+    }
+
+    public boolean temMaisBatalhas() {
+        return batalhas.stream().anyMatch(b -> !b.isFinalizada());
+    }
     public List<Startup> getTodasStartups() {
         return todasStartups;
     }
@@ -127,4 +108,21 @@ public class TorneioController {
     public Startup getByeDaRodada() {
         return byeDaRodada;
     }
+    public Startup getStartupComBye() {
+        return startupComBye;
+    }
+
+    public boolean torneioFinalizado() {
+        return campea != null;
+    }
+
+    public Startup getCampea() {
+        return campea;
+    }
+
+    public int getRodada() {
+        return rodada;
+    }
+
+    
 }

@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
             TorneioController controller = new TorneioController();
-            new JanelaMenu(controller); // Chama o Menu inicial
+            new JanelaMenu(controller); 
         });
     }
 }

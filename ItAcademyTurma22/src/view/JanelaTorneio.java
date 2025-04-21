@@ -64,7 +64,6 @@ public class JanelaTorneio extends JFrame {
     	    if (controller.batalhasRestantes().isEmpty()) {
     	        controller.avancarFase();
 
-    	        // Se alguém passou automaticamente (bye), exibe na interface
     	        if (controller.getStartupComBye() != null) {
     	            JOptionPane.showMessageDialog(this,
     	                    "🚀 A startup \"" + controller.getStartupComBye().getNome() + "\" avançou automaticamente para a próxima rodada!",
@@ -81,7 +80,7 @@ public class JanelaTorneio extends JFrame {
     	            new JanelaRelatorio(controller).setVisible(true);
     	            dispose();
     	        } else {
-    	            atualizarTela(); // <-- importante para exibir nova rodada
+    	            atualizarTela(); 
     	        }
     	    }
     	}

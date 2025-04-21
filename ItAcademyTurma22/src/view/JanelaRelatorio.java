@@ -22,7 +22,6 @@ public class JanelaRelatorio extends JFrame {
         titulo.setBorder(BorderFactory.createEmptyBorder(15, 0, 15, 0));
         getContentPane().add(titulo, BorderLayout.NORTH);
 
-        //  de dados
         String[] colunas = {"Startup", "Pontos", "Pitch Convincente", "Produto com Bugs", "Boa Tração Usuários", "Invest. Irritados"};
         DefaultTableModel modelo = new DefaultTableModel(colunas, 0);
 
@@ -49,7 +48,6 @@ public class JanelaRelatorio extends JFrame {
         JScrollPane scrollPane = new JScrollPane(tabela);
         getContentPane().add(scrollPane, BorderLayout.CENTER);
 
-        // Slogan da campeã
         Startup campea = controller.getCampea();
         if (campea != null) {
             JLabel slogan = new JLabel("Campeã: \"" + campea.getNome() + "\": \"" + campea.getSlogan() + "\"", SwingConstants.CENTER);
