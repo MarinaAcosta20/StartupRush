@@ -26,7 +26,7 @@ public class JanelaRelatorio extends JFrame {
         DefaultTableModel modelo = new DefaultTableModel(colunas, 0);
 
         List<Startup> todas = controller.getTodasStartups();
-        todas.sort((a, b) -> Integer.compare(b.getPontos(), a.getPontos())); // ordena por pontos decrescente
+        todas.sort((a, b) -> Integer.compare(b.getPontos(), a.getPontos())); 
 
         for (Startup s : todas) {
             Object[] linha = {
