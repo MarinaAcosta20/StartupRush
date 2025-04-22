@@ -13,28 +13,23 @@ public class JanelaMenu extends JFrame {
     public JanelaMenu(TorneioController controller) {
         this.controller = controller;
 
-        // Configurações da janela
         setTitle("Startup Rush");
         setSize(800, 700);
-        setLocationRelativeTo(null); // Centraliza a janela
+        setLocationRelativeTo(null); 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
 
-        // Criação do painel principal
         JPanel painel = new JPanel();
         painel.setLayout(new BoxLayout(painel, BoxLayout.Y_AXIS));
-        painel.setBackground(new Color(255, 192, 203)); // Cor de fundo escura e moderna
+        painel.setBackground(new Color(255, 192, 203)); 
 
-        // Título
         JLabel titulo = new JLabel("Bem vindo(a) ao Startup Rush!", JLabel.CENTER);
         titulo.setFont(new Font("Tahoma", Font.BOLD, 32));
-        titulo.setForeground(new Color(0, 0, 0)); // Cor do título
+        titulo.setForeground(new Color(0, 0, 0)); 
         painel.add(titulo);
 
-        // Espaçamento entre título e regras
         painel.add(Box.createVerticalStrut(20));
 
-        // Seção de Regras do jogo
         JLabel tituloRegras = new JLabel("Regras do Jogo", JLabel.CENTER);
         tituloRegras.setFont(new Font("Tahoma", Font.BOLD, 18));
         tituloRegras.setForeground(new Color(0, 0, 0));
@@ -54,16 +49,15 @@ public class JanelaMenu extends JFrame {
         regras.setWrapStyleWord(true);
         regras.setLineWrap(true);
         regras.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        regras.setBackground(new Color(240, 240, 240)); // Cor de fundo clara para o texto
-        regras.setForeground(new Color(50, 50, 50)); // Cor de texto escura
-        regras.setPreferredSize(new Dimension(500, 150)); // Tamanho da área de texto
-        regras.setCaretPosition(0); // Posiciona o texto no topo
-        JScrollPane scrollPaneRegras = new JScrollPane(regras); // Adiciona a barra de rolagem
+        regras.setBackground(new Color(240, 240, 240)); 
+        regras.setForeground(new Color(50, 50, 50)); 
+        regras.setPreferredSize(new Dimension(500, 150)); 
+        regras.setCaretPosition(0); 
+        JScrollPane scrollPaneRegras = new JScrollPane(regras); 
         painel.add(scrollPaneRegras);
 
-        painel.add(Box.createVerticalStrut(20)); // Espaçamento entre regras e eventos
+        painel.add(Box.createVerticalStrut(20)); 
 
-        // Seção de Eventos Globais
         JLabel tituloEventos = new JLabel("Eventos Globais", JLabel.CENTER);
         tituloEventos.setFont(new Font("Tahoma", Font.BOLD, 18));
         tituloEventos.setForeground(new Color(0, 0, 0));
@@ -90,9 +84,8 @@ public class JanelaMenu extends JFrame {
         JScrollPane scrollPaneEventos = new JScrollPane(eventos);
         painel.add(scrollPaneEventos);
 
-        painel.add(Box.createVerticalStrut(20)); // Espaçamento entre eventos e o botão
+        painel.add(Box.createVerticalStrut(20)); 
 
-        // Seção do Empate e Shark Fight
         JLabel tituloEmpate = new JLabel("Empate e Shark Fight", JLabel.CENTER);
         tituloEmpate.setFont(new Font("Tahoma", Font.BOLD, 18));
         tituloEmpate.setForeground(new Color(0, 0, 0));
@@ -114,10 +107,8 @@ public class JanelaMenu extends JFrame {
         JScrollPane scrollPaneEmpate = new JScrollPane(empate);
         painel.add(scrollPaneEmpate);
 
-        // Espaçamento entre o botão e a borda inferior
         painel.add(Box.createVerticalStrut(30));
 
-        // Botão para cadastrar startups
         JButton botaoCadastro = new JButton("Cadastrar Startups");
         botaoCadastro.setFont(new Font("Tahoma", Font.BOLD, 16));
         botaoCadastro.setBackground(new Color(255, 255, 255)); // Cor de fundo azul
@@ -128,17 +119,15 @@ public class JanelaMenu extends JFrame {
         botaoCadastro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Chama a janela de cadastro de startups
                 new JanelaCadastro(controller).setVisible(true);
-                dispose(); // Fecha a janela de menu
+                dispose(); 
             }
         });
         painel.add(botaoCadastro);
 
-        // Adiciona o painel à janela
         getContentPane().add(painel);
 
-        // Torna a janela visível
+    
         setVisible(true);
     }
 }
