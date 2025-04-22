@@ -1,7 +1,7 @@
 package app;
 
 import controller.TorneioController;
-import view.JanelaMenu; // Importando o Menu
+import view.JanelaMenu; 
 
 public class Main {
     public static void main(String[] args) {
