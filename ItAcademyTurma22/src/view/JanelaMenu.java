@@ -111,11 +111,11 @@ public class JanelaMenu extends JFrame {
 
         JButton botaoCadastro = new JButton("Cadastrar Startups");
         botaoCadastro.setFont(new Font("Tahoma", Font.BOLD, 16));
-        botaoCadastro.setBackground(new Color(255, 255, 255)); // Cor de fundo azul
-        botaoCadastro.setForeground(new Color(0, 0, 0)); // Cor do texto no botão
-        botaoCadastro.setFocusPainted(false); // Remove o foco
-        botaoCadastro.setBorderPainted(false); // Remove a borda
-        botaoCadastro.setPreferredSize(new Dimension(200, 50)); // Tamanho do botão
+        botaoCadastro.setBackground(new Color(255, 255, 255)); 
+        botaoCadastro.setForeground(new Color(0, 0, 0)); 
+        botaoCadastro.setFocusPainted(false); 
+        botaoCadastro.setBorderPainted(false); 
+        botaoCadastro.setPreferredSize(new Dimension(200, 50)); 
         botaoCadastro.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
